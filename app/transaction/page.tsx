@@ -30,9 +30,10 @@ const TransactionPage = () => {
       }
     };
     fetchTransactions();
-  }, [user, transactions, setTransactions]);
+  }, [user]);
 
   useEffect(() => {
+    if(user) return
     const fetchCurrentUser = async () => {
       try {
         const response = await get<{ user: User }>(`/api/accounts/current`);
@@ -44,7 +45,7 @@ const TransactionPage = () => {
       }
     };
     fetchCurrentUser();
-  }, [setUser, setTransactions]);
+  }, []);
 
   return (
     <div className="w-full flex flex-col mx-auto justify-center items-center">
