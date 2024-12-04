@@ -34,7 +34,11 @@ const TransactionItem = ({ transaction }: { transaction: Transaction }) => (
     </div>
     <div className="flex w-[35%] md:justify-between justify-end">
       <div className="text-sm text-gray-500 text-right hidden md:flex">
-        {transaction.date}
+        {new Date(transaction.date).toLocaleDateString('en-US', {
+          month: '2-digit',
+          day: '2-digit',
+          year: 'numeric'
+        })}
       </div>
       <div
         className={`font-medium ${

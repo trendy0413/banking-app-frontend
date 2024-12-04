@@ -3,11 +3,10 @@ import { FormData, FormErrors } from "../types/operation";
 import { useUser } from "./useUser";
 import { useTransactions } from "./useTransactions";
 import { post } from "@/lib/apiUtils";
-import { Transaction } from "@/types/transaction";
 import { toast } from "react-hot-toast";
 
 export const useOperationForm = () => {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
   const { transactions, setTransactions } = useTransactions();
 
   const initialFormData: FormData = {
@@ -67,6 +66,13 @@ export const useOperationForm = () => {
         });
         if (response.data) {
           setTransactions([...transactions, response.data]);
+          if (user) {
+            const _balance =
+              formData.selectedOperation === "deposit"
+                ? user?.balance + Number(formData.amount)
+                : user?.balance - Number(formData.amount);
+            setUser({ ...user, balance: _balance });
+          }
           toast.success("Operation completed successfully!");
         }
         if (response.error) {

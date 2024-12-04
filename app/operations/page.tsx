@@ -142,7 +142,7 @@ const OperationPage = () => {
                 Processing...
               </span>
             ) : (
-              "Verify"
+              "Process"
             )}
           </button>
         </div>

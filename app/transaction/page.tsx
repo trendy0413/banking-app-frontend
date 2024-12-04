@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import TransactionItem from "@/components/ui/TransactionItem";
 
 import { useTransactions } from "@/hooks/useTransactions";
@@ -12,6 +12,7 @@ import { User } from "@/types/user";
 const TransactionPage = () => {
   const { transactions, setTransactions } = useTransactions();
   const { user, setUser } = useUser();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -26,6 +27,8 @@ const TransactionPage = () => {
         } catch (e) {
           console.log(e)
           setTransactions([]);
+        } finally {
+          setLoading(false);
         }
       }
     };
@@ -55,10 +58,14 @@ const TransactionPage = () => {
             <h2 className="text-xl font-semibold mb-4">Total Balance</h2>
             <h2 className="text-xl font-semibold mb-4">${user?.balance}</h2>
           </div>
-          {transactions.length &&
+          {loading ? (
+            <div>Loading...</div>
+          ) : (
+            transactions.length &&
             transactions.map((transaction) => (
               <TransactionItem key={transaction.id} transaction={transaction} />
-            ))}
+            ))
+          )}
         </div>
       </div>
     </div>
