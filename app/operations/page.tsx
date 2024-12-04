@@ -58,7 +58,6 @@ const OperationPage = () => {
                 selectedOperation={formData.selectedOperation}
                 setSelectedOperation={(op) => {
                   updateFormData("selectedOperation", op);
-                  toast.success(`Operation type changed to ${op}`);
                 }}
               />
             ))}
