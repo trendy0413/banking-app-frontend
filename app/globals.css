@@ -19,3 +19,12 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+tspan {
+  font-size: 12px;
+}
+
+.PhoneInput input:focus {
+  border: none !important;
+  outline: none !important;
+}
